@@ -14,6 +14,8 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import org.json.JSONObject;
+
 import cz.msebera.android.httpclient.Header;
 
 public class MainActivity extends AppCompatActivity {
@@ -55,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
                         int duracion = Toast.LENGTH_LONG;
 
                         Toast toast = Toast.makeText(CONTEXT, TEXT, duracion);
+                        toast.show();
                     }
                 });
             }
@@ -66,10 +69,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 RequestParams params = new RequestParams();
                 String URL = "https://api-actividades.herokuapp.com/api/users/register";
-                params.put("name","Sami");
-                params.put("email","sami@gmail.com");
+                params.put("name","lucas");
+                params.put("email","lucas@gmail.com");
                 params.put("password","12345");
-                params.put("phone","9619373816");
+                params.put("phone","9619238165");
                 new AsyncHttpClient().post(URL, params, new AsyncHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
@@ -89,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
                         int duracion = Toast.LENGTH_LONG;
 
                         Toast toast = Toast.makeText(CONTEXT, TEXT, duracion);
+                        toast.show();
                     }
                 });
             }
@@ -98,13 +102,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 RequestParams params = new RequestParams();
-                String URL = "https://api-actividades.herokuapp.com/api/users/update/";
-                params.put("name","Ernesto");
-                params.put("email","ernesto@gmail.com");
+                String idUser = "20";
+                String URL = "https://api-actividades.herokuapp.com/api/users/update/" + idUser;
+                params.put("name","Samuel");
+                params.put("email","samuel@gmail.com");
                 params.put("password","12345");
-                params.put("phone","9619373816");
-                String idUser = "4";
-                new AsyncHttpClient().put(URL + idUser, params, new AsyncHttpResponseHandler() {
+                params.put("phone","9619373817");
+
+                System.out.println(params);
+                System.out.println(URL);
+
+                new AsyncHttpClient().put(getApplicationContext() ,URL, params, new AsyncHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                         String str = new String(responseBody);
@@ -118,11 +126,14 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                        String str = new String(responseBody);
                         Context CONTEXT =   getApplicationContext();
                         CharSequence TEXT = "Error al conectar UPDATE";
                         int duracion = Toast.LENGTH_LONG;
-
+                        System.out.println("error "+error);
+                        System.out.println("response"+ str);
                         Toast toast = Toast.makeText(CONTEXT, TEXT, duracion);
+                        toast.show();
                     }
                 });
             }
@@ -133,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 RequestParams params = new RequestParams();
                 String URL = "https://api-actividades.herokuapp.com/api/users/delete/";
-                String idUser = "5";
+                String idUser = "21";
                 new AsyncHttpClient().delete(URL + idUser, new AsyncHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
@@ -153,6 +164,7 @@ public class MainActivity extends AppCompatActivity {
                         int duracion = Toast.LENGTH_LONG;
 
                         Toast toast = Toast.makeText(CONTEXT, TEXT, duracion);
+                        toast.show();
                     }
                 });
             }
